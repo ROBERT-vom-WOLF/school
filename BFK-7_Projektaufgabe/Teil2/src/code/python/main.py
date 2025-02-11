@@ -10,7 +10,7 @@ class App:
         with open(path.join(path.dirname(path.dirname(getcwd())), "resources/config.json"), "r", encoding="utf-8") as file:
             self.config: dict[list | str, str | dict[str, str | int]] = load_json(file)
 
-        log_file_path = path.join(path.dirname(path.dirname(path.dirname(getcwd()))), "appdata/logs/app.log")
+        log_file_path = path.join(path.dirname(path.dirname(path.dirname(getcwd()))), "appdata/app.log")
         self.notifier = Notifier(
             self.config["SENDER_EMAIL_ADDRESS"],
             self.config["SENDER_EMAIL_PASSWD"],
