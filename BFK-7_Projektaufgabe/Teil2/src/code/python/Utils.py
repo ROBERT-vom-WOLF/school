@@ -2,6 +2,8 @@ import logging
 import logging.handlers
 import smtplib
 from email.mime.text import MIMEText
+import sqlite3
+from datetime import datetime
 
 
 def get_logger(thread_name: str, file_name: str) -> logging.Logger:
@@ -32,7 +34,7 @@ def get_logger(thread_name: str, file_name: str) -> logging.Logger:
 class Notifier:
 
     def __init__(self, sender_address, sender_passwd, receiver_address, log_file_path, **kwargs):
-        self.log = get_logger(Notifier.__name__, log_file_path)
+        self.log = get_logger(self.__class__.__name__, log_file_path)
         self.sender_email_address = sender_address
         self.sender_email_passwd = sender_passwd
         self.receiver_email_address = receiver_address
@@ -63,3 +65,25 @@ class Notifier:
 
         # log that the email was sent successfully
         self.log.info("Email sent successfully.")
+
+
+class DatabaseManager:
+    def __init__(self, log_file_path, db_name='messwerte.db'):
+        self.db_name = db_name
+        self.log = get_logger(self.__class__.__name__, log_file_path)
+        self._initialize_database()
+
+    def _initialize_database(self):
+        """Create the database and table if they do not exist."""
+        self.log.info("Initializing the database.")
+        conn = sqlite3.connect(self.db_name)
+        cursor = conn.cursor()
+        cursor.execute('''
+           CREATE TABLE IF NOT EXISTS messwerte (
+               id INTEGER PRIMARY KEY,
+               level TEXT,
+               timestamp TEXT
+           )
+       ''')
+        conn.commit()
+        conn.close()

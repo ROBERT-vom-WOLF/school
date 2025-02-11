@@ -19,7 +19,7 @@ class App:
             port=587,
             server="smtp.gmail.com"
         )
-        self.log = get_logger(App.__name__, log_file_path)
+        self.log = get_logger(self.__class__.__name__, log_file_path)
         self.triggered_water_areas = []
 
     def get_water_level(self, bit_value: str):
