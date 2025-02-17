@@ -3,3 +3,4 @@ BFK-7_Projektaufgabe/Teil1/src/resources/config.json
 
 .idea/
 *.log
+*.db
