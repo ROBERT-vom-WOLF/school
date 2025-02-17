@@ -6,13 +6,15 @@ from time import sleep
 
 class App:
     def __init__(self, default: str = "111111", **kwargs):
-        assert "main.py" in listdir(getcwd()), "Programm can only be executed from the folder it lies in itself!"
-
         projekt_root_dir = path.dirname(path.dirname(path.dirname(getcwd())))
         config_path = path.join(projekt_root_dir, kwargs.get("config_location", "src/resources/config.json"))
         log_file_path = path.join(projekt_root_dir, kwargs.get("logfile_location", "appdata/app.log"))
         database_path = path.join(projekt_root_dir, kwargs.get("database_location", "appdata/messwerte.db"))
+
+        assert "main.py" in listdir(getcwd()), "Programm can only be executed from the folder it lies in itself!"
         assert path.isfile(config_path), "No config-file found! Check out the README.md of this Project inside 'school/BFK-7_Projektaufgabe/README.md'"
+        assert path.isfile(log_file_path), "No log-file found!"
+        assert path.isfile(database_path), "No database-file found!"
 
         # load my config from my json file
         with open(config_path, "r", encoding="utf-8") as file:
