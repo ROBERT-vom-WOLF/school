@@ -1,4 +1,7 @@
 {
+    "NOTIFICATION_WHEN_RISEN_ABOVE": [
+        "PB2"
+    ],
     "SENSOR_NAMES": [
         "BG5",
         "BG4",
