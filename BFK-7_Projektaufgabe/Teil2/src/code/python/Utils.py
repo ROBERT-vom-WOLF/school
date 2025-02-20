@@ -94,9 +94,9 @@ class DatabaseManager:
         cursor.execute(sql, params)
         if commit:
             conn.commit()
-            self.log.info(f"Executed SQL with commit: {[x.strip() for x in sql.splitlines()]}")
+            self.log.debug(f"Executed SQL with commit: {[x.strip() for x in sql.splitlines()]}")
         else:
-            self.log.info(f"Executed SQL: {[x.strip() for x in sql.strip().splitlines()]}")
+            self.log.debug(f"Executed SQL: {[x.strip() for x in sql.strip().splitlines()]}")
         rows = cursor.fetchall()
         conn.close()
         return rows
