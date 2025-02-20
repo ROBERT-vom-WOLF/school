@@ -19,7 +19,7 @@ def get_logger(thread_name: str, file_name: str) -> logging.Logger:
 
     # Create formatter
     file_formatter = logging.Formatter('[(%(asctime)s) (%(name)s) (thread=%(thread)-6s) (%(filename)s:%(lineno)d) |-%(levelname)s] %(message)s', "%d.%m.%Y - %H:%M:%S")
-    stream_formatter = logging.Formatter('[(%(asctime)s) | %(levelname)s] %(message)s', "%d.%m.%Y - %H:%M:%S")
+    stream_formatter = logging.Formatter('[(%(asctime)s) | %(levelname)s] %(message)s', "%H:%M:%S")
 
     # Set formatter for each handler
     central_handler.setFormatter(file_formatter)
