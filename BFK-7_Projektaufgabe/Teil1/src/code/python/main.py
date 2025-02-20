@@ -144,7 +144,7 @@ class App:
                 self.database.add_entry(self.water_level)
 
                 # when the user enters a higher value (meaning the water was filled up)
-                if int(user_input, 2) >= int(self.active_value, 2):
+                if int(user_input, 2) > int(self.active_value, 2):
                     self.triggered_water_areas.clear()
 
                     # when the water level rises above a defined level, send a notification
