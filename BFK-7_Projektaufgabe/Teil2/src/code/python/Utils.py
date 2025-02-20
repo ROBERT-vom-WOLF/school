@@ -6,6 +6,7 @@ import sqlite3
 from datetime import datetime
 
 
+
 def get_logger(thread_name: str, file_name: str) -> logging.Logger:
     # Create a custom logger
     logger = logging.getLogger(thread_name)
@@ -17,12 +18,13 @@ def get_logger(thread_name: str, file_name: str) -> logging.Logger:
     central_handler = logging.handlers.RotatingFileHandler(file_name, maxBytes=10240000, encoding="UTF-8", backupCount=10)
     stream_handler = logging.StreamHandler()
 
-    # Create a formatter
-    formatter = logging.Formatter('[(%(asctime)s) (%(name)s) (thread=%(thread)-6s) (%(filename)s:%(lineno)d) |-%(levelname)s] %(message)s', "%d.%m.%Y - %H:%M:%S")
+    # Create formatter
+    file_formatter = logging.Formatter('[(%(asctime)s) (%(name)s) (thread=%(thread)-6s) (%(filename)s:%(lineno)d) |-%(levelname)s] %(message)s', "%d.%m.%Y - %H:%M:%S")
+    stream_formatter = logging.Formatter('[(%(asctime)s) | %(levelname)s] %(message)s', "%H:%M:%S")
 
     # Set formatter for each handler
-    central_handler.setFormatter(formatter)
-    stream_handler.setFormatter(formatter)
+    central_handler.setFormatter(file_formatter)
+    stream_handler.setFormatter(stream_formatter)
 
     # Add handlers to the logger
     logger.addHandler(central_handler)
