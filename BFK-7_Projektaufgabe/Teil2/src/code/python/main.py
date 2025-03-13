@@ -139,17 +139,18 @@ class App:
 
             # triggered when the bit-value is usable and is either smaller or higher by one than the current value
             if self.validate_bit_value(user_input) and (one_bit_changed or (one_bit_changed and int(user_input, 2) >= int(self.active_value, 2))):
-                self.active_value = user_input
-                self.water_level = self.get_water_level(self.active_value)
+                self.water_level = self.get_water_level(user_input)
                 self.database.add_entry(self.water_level)
 
                 # when the user enters a higher value (meaning the water was filled up)
                 if int(user_input, 2) > int(self.active_value, 2):
-                    self.triggered_water_areas.clear()
-
                     # when the water level rises above a defined level, send a notification
                     if self.water_level in self.config["NOTIFICATION_WHEN_RISEN_ABOVE"]:
+                        self.log.info("Trying to send database-notification")
                         self.database_notification()
+
+                self.active_value = user_input
+
 
                 # when the notification for the area was not sent already, send an email
                 if self.water_level not in self.triggered_water_areas:
